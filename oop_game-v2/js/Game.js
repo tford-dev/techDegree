@@ -76,8 +76,12 @@ class Game {
     gameOver(){
         overlay.style.display = "initial";
         if(show.length === letters.length){
+            overlay.classList.remove("lose");
+            overlay.classList.add("win");
             gameMsg.innerHTML = `Good job <em>PHRASE HUNTER</em>, you guessed the phrase with ${this.missed} characters missed!`;
         } else if(this.missed === 5){
+            overlay.classList.remove("win");
+            overlay.classList.add("lose");
             gameMsg.innerHTML = `Mission failed, the phrase has injected itself into the system, press start game to try again.`
         }
         this.missed = 0;
