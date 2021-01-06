@@ -7,7 +7,7 @@ class Game {
 
     //clears loading screen, chooses a random Phrase class, assigns active phrase to global variable, and adds active phrase to display
     startGame(){
-        overlay.style.display = "none";
+        fadeOut();
         this.activePhrase = this.getRandomPhrase(); 
         activePhrase = this.activePhrase
         console.log(activePhrase);
