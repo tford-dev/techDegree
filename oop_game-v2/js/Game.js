@@ -1,20 +1,20 @@
 class Game {
-    constructor(missed, phrases, activePhrase){
+    constructor(){
         this.missed = 0;
-        this.phrases = ["a dime a dozen", "a piece of cake", "an arm and a leg", "a chip on your shoulder", "back to square one"];
+        this.phrases = this.pushPhrase();
         this.activePhrase = null;
     }
 
-    //clears loading screen, chooses a random phrase, assigns active phrase to global variable, and adds active phrase to display
+    //clears loading screen, chooses a random Phrase class, assigns active phrase to global variable, and adds active phrase to display
     startGame(){
         overlay.style.display = "none";
         this.activePhrase = this.getRandomPhrase(); 
         activePhrase = this.activePhrase
-        newPhrase = new Phrase(activePhrase);
-        newPhrase.addPhraseToDisplay();
+        console.log(activePhrase);
+        activePhrase.addPhraseToDisplay();
     }
 
-    //simple logic to create a random index to choose from this.phrases in constructor
+    //simple logic to create a random index to choose class from pushPhrase() array in this.phrase in constructor
     getRandomPhrase(){
         const phraseIdx = Math.floor(Math.random() * this.phrases.length);
         return this.phrases[phraseIdx];
@@ -36,21 +36,24 @@ class Game {
         });
     }
     
-    //Method that assigns "wrong" and "chosen" class to buttons that do not and do match characters in phrase and reveals correct characters to display(ul)
+    //Method that assigns "wrong" and "chosen" class to buttons that do or do not match characters in phrase and reveals correct characters to display(ul) as well as calls gameOver() method if player has won or has 5 misses(this.missed)
     handleInteraction(){
         for(let i = 0; i < keys.length; i++){
             keys[i].addEventListener("click", (e)=>{
                 target = e.target.textContent;
                 e.target.disabled = true;
-                if(newPhrase.checkLetter()){
+                if(activePhrase.checkLetter()){
                     e.target.classList.add("chosen");
-                    newPhrase.showMatchedLetter();
+                    activePhrase.showMatchedLetter();
                     this.checkForWin()
                 } else {
                     this.removeLife();
                     e.target.classList.add("wrong");
                     this.checkForWin();
-                }
+                };
+                if(this.checkForWin() === true || this.missed === 5){
+                    this.gameOver();   
+                };
             });
         }
     }
@@ -63,29 +66,37 @@ class Game {
         heartPng[heartPng.length - this.missed].src = "images/lostHeart.png";
     }
 
-    //Method that uses amount of elements with "show" class and "letter" class to see if user has won or to see if amount of misses determines in a player has lost
+    //Method that checks to see if all letters are uncovered in the ul and then returns a boolean to check if user has won.
     checkForWin(){
         if(show.length === letters.length){
-            this.gameOver();
-        } else if(this.missed === 5) {
-            this.gameOver();
+            return true;
         }
     }
 
     //Method that loads start screen with a message based on if user has won or lost game as well as resets this.missed to 0
     gameOver(){
         overlay.style.display = "initial";
-        if(show.length === letters.length){
+        if(this.checkForWin() === true){
             overlay.classList.remove("lose");
             overlay.classList.add("win");
             gameMsg.innerHTML = `Good job <em>PHRASE HUNTER</em>, you guessed the phrase with ${this.missed} characters missed!`;
-        } else if(this.missed === 5){
+        } else if(this.missed === 5) {
             overlay.classList.remove("win");
             overlay.classList.add("lose");
             gameMsg.innerHTML = `Mission failed, the phrase has injected itself into the system, press start game to try again.`
         }
         this.missed = 0;
     }
+
+    //Method that returns an array of phrase classes with different strings for phrase property in Phrase class constructor
+    pushPhrase(){
+        const phraseArr = [
+            new Phrase("a dime a dozen"),
+            new Phrase("a piece of cake"),
+            new Phrase("an arm and a leg"),
+            new Phrase("a chip on your shoulder"),
+            new Phrase("back to square one")
+        ];
+        return phraseArr;
+    }
 }
-
-
