@@ -5,7 +5,7 @@ class Phrase {
 
     //takes activePhrase assigned in startGame() in Game.js, makes characters lowercased, and puts in empty ul in index.html
     addPhraseToDisplay() {
-        const lowerCased = activePhrase.toLowerCase();
+        const lowerCased = this.phrase.toLowerCase();
         console.log(lowerCased);
         for(let char of lowerCased.split("")){
             if(char === " "){
