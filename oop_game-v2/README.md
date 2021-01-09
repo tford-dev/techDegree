@@ -1,1 +1,1 @@
-This script is my code for the Team Treehouse Full Stack JavaScript Tech-Degree course(project 4). The HTML and CSS for this project is provided by Treehouse. I added an animation called fadeOut() in app.js so that start screen will fade away when the start game button is pressed.
+This script is my code for the Team Treehouse Full Stack JavaScript Tech-Degree course(project 4). The HTML and CSS for this project is provided by Treehouse. 
