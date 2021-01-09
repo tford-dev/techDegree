@@ -13,18 +13,8 @@ const gameMsg       = document.getElementById("game-over-message");
 let   newGame; //variable to hold Game class globally. First assigned in line 28 of app.js
 let   activePhrase; //variable to hold this.phrase globally in app. First assigned in line 12 of Game.js
 let   target; //variable changes values in Game.js to assign different class names. First assigned in line 25 in Game.js
+
 //function to control logic for start game button. This button also resets. It clears "wrong" and "chosen" class from keyboard, changes png file image for hearts at the bottom of screen, creates a Game class, and calls the startGame(), keyCode(), and handleInteraction() methods from Game.js.
-let   opacity = 1; //sets starting opacity for fadeOut()
-
-//function that is an animation to fade out start screen
-const fadeOut = () => {   
-    if (opacity > 0) {
-        opacity -= .1;
-        setTimeout(()=>{fadeOut()},30);
-   }
-   overlay.style.opacity = opacity;
-};
-
 const start = () =>{
     gameMsg.innerHTML += `Guess the correct phrase before the virus spreads throughout the system!`
     buttonReset.addEventListener("click", (e)=>{
